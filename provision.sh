@@ -34,3 +34,11 @@ if [ ! -f /usr/bin/ansible-playbook ]; then
 else
   echo "Already installed ansible"
 fi
+
+if [ ! -d /root/ansible/local.yml ]; then
+  echo "Cloning ansible repo"
+  git clone git@github.com:micw/provisioning_vps1.git /root/ansible/
+else
+  echo "Already cloned ansible repo"
+fi
+
