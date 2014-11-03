@@ -2,7 +2,7 @@
 #
 # USAGE:
 # [ -f /usr/bin/curl ] || apt-get -y install curl
-# curl -sSL https://gist.githubusercontent.com/micw/987af53361c1d7de1369/raw/ | /bin/bash
+# curl -sSL https://raw.githubusercontent.com/micw/provisioning_vps1/master/provision.sh | /bin/bash
 
 set -e
 
