@@ -35,10 +35,28 @@ else
   echo "Already installed ansible"
 fi
 
-if [ ! -d /root/ansible/local.yml ]; then
+if [ ! -f /root/ansible/local.yml ]; then
   echo "Cloning ansible repo"
   git clone git@github.com:micw/provisioning_vps1.git /root/ansible/
 else
   echo "Already cloned ansible repo"
 fi
 
+if ! grep /etc/ansible/hosts -e '\[local\]' > /dev/null ; then
+  echo "Configuring ansible hosts"
+  echo -e "[local]\nlocalhost" > /etc/ansible/hosts
+else
+  echo "Already configured ansible hosts"
+fi
+
+if [ ! -f /root/.ssh/id_rsa ]; then
+  echo "Creating ssh keys for root"
+  ssh-keygen -f /root/.ssh/id_rsa -N '' && \
+    cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys && \
+    chmod 600 /root/.ssh/authorized_keys
+else
+  echo "Already created ssh keys for root"
+fi
+
+echo "Running ansible"
+/usr/bin/ansible-playbook /root/ansible/local.yml
