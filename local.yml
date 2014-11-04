@@ -1,4 +1,16 @@
 ---
 
 - hosts: all
-  
+  tasks:
+  - include: roles/ssh-admins/tasks/mwyraz.yml
+  - include: roles/ssh-admins/tasks/oldkeys.yml
+  roles:
+  - { role: cron-apt, cron_apt_mailto: michael@wyraz.de }
+
+
+- hosts: all
+  vars:
+  - backup_rsync_push_clients:
+    - homehost.wyraz.de
+  roles:
+  - role: backup-rsync-push-server
